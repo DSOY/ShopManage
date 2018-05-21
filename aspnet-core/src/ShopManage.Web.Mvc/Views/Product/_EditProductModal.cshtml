@@ -1,0 +1,72 @@
+﻿@using Abp.MultiTenancy
+@using ShopManage.Shop.Product.Dtos
+@using ShopManage.Web.Models.Common.Modals
+@model ProductListDto
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditProduct")))
+<div class="modal-body">
+    <form name="ProductEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="text" name="Name" required maxlength="100" value="@Model.Name">
+                <label class="form-label">@L("Name")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="text" name="ShortName" required maxlength="100" value="@Model.ShortName">
+                <label class="form-label">@L("ShortName")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="number" name="Price" required maxlength="100" value="@Model.Price">
+                <label class="form-label">@L("Price")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="number" name="OldPrice" required maxlength="100" value="@Model.OldPrice">
+                <label class="form-label">@L("OldPrice")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="text" name="Size" required maxlength="100" value="@Model.Size">
+                <label class="form-label">@L("Size")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <select class="form-control selectpicker" name="EditCategoryId">
+                    @foreach (var item in ViewBag.Category.Items)
+                    {
+                        @if (item.Id == Model.CategoryId)
+                        {
+                            <option class="filter-option" value
+                                    ="@item.Id" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option class="filter-option" value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" name="IsBest" value="@Model.IsBest" id="UpdateProductIsBest" class="filled-in" @(Model.IsBest == 1 ? "checked" : "") />
+            <label for="UpdateProductIsBest">@L("IsBest")</label>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" name="IsNew" value="@Model.IsNew" id="UpdateProductIsNew" class="filled-in" @(Model.IsNew == 1 ? "checked" : "") />
+            <label for="UpdateProductIsNew">@L("IsNew")</label>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+<script src="~/view-resources/Views/Product/_EditProductModal.js" asp-append-version="true"></script>
