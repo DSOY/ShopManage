@@ -56,6 +56,7 @@ namespace ShopManage.Web.Host.Startup
             {
                 options.ForwardClientCertificate = false;
             });
+
             // Configure CORS for angular2 UI
             services.AddCors(
                 options => options.AddPolicy(

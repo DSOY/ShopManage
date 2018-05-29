@@ -1045,11 +1045,15 @@ namespace ShopManage.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int>("ParentId");
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -1070,6 +1074,8 @@ namespace ShopManage.Migrations
                         .HasMaxLength(64);
 
                     b.Property<int>("CommentTimes");
+
+                    b.Property<DateTime>("CreateTime");
 
                     b.Property<DateTime>("CreationTime");
 

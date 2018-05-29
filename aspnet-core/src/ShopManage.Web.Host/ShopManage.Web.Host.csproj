@@ -12,6 +12,12 @@
     <DefineConstants>FEATURE_SIGNALR_ASPNETCORE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Remove="Properties\PublishProfiles\CustomProfile2.pubxml" />
+    <None Remove="Properties\PublishProfiles\CustomProfile4.pubxml" />
+    <None Remove="Properties\PublishProfiles\CustomProfile6.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="app.config" />
     <None Update="Dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -28,6 +34,7 @@
     <ProjectReference Include="..\ShopManage.Web.Core\ShopManage.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
