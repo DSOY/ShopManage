@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ShopManage.Shop.Product
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IProductAppService: IApplicationService
     {
         /// <summary>
@@ -16,6 +19,12 @@ namespace ShopManage.Shop.Product
         /// <param name="input"></param>
         /// <returns></returns>
         Task<PagedResultDto<ProductListDto>> GetPagedProductAsync(GetProductInput input);
+
+        /// <summary>
+        /// 根据品类获取商品分页数据
+        /// </summary>
+        /// <returns></returns>
+        Task<PagedResultDto<ProductListDto>> GetPagedProductByCategory(GetProductByCategoryInput input);
 
         /// <summary>
         /// 根据ID获取商品
@@ -35,6 +44,5 @@ namespace ShopManage.Shop.Product
         /// <param name="input"></param>
         /// <returns></returns>
         Task DeteleProductAsync(EntityDto input);
-
     }
 }

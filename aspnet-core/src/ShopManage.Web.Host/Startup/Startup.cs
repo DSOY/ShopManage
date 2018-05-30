@@ -14,6 +14,7 @@ using Abp.Extensions;
 using ShopManage.Authentication.JwtBearer;
 using ShopManage.Configuration;
 using ShopManage.Identity;
+using System.IO;
 
 #if FEATURE_SIGNALR
 using Microsoft.AspNet.SignalR;
@@ -77,8 +78,14 @@ namespace ShopManage.Web.Host.Startup
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Info { Title = "ShopManage API", Version = "v1" });
+                options.SwaggerDoc("v1", new Info { Title = "ShopManage API文档", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
+
+                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                var commentsFileName = "ShopManage.Application.xml";
+                var commentsFile = Path.Combine(baseDirectory, commentsFileName);
+                //将注释的XML文档添加到SwaggerUI中
+                options.IncludeXmlComments(commentsFile);
 
                 // Define the BearerAuth scheme that's in use
                 options.AddSecurityDefinition("bearerAuth", new ApiKeyScheme()

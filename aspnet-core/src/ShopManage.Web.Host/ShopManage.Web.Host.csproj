@@ -11,6 +11,9 @@
   <PropertyGroup>
     <DefineConstants>FEATURE_SIGNALR_ASPNETCORE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Remove="Properties\PublishProfiles\CustomProfile2.pubxml" />

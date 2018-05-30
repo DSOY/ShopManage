@@ -7,6 +7,9 @@ using System.Text;
 
 namespace ShopManage.Shop.Product.Dtos
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [AutoMap(typeof(Product))]
     public class ProductListDto: FullAuditedEntity
     {
