@@ -12,6 +12,9 @@ using ShopManage.Shop.Product.Dtos;
 
 namespace ShopManage.Shop.Product
 {
+    /// <summary>
+    /// 商品服务层
+    /// </summary>
     public class ProductAppService : ShopManageAppServiceBase, IProductAppService
     {
         #region 注入

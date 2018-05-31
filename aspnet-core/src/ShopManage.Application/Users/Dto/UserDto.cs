@@ -36,5 +36,12 @@ namespace ShopManage.Users.Dto
         public DateTime CreationTime { get; set; }
 
         public string[] RoleNames { get; set; }
+
+
+        /// <summary>
+        /// Í·Ïñ
+        /// </summary>
+        [MaxLength(512)]
+        public string Portrait { get; set; }
     }
 }

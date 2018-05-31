@@ -18,14 +18,26 @@ using ShopManage.Users.Dto;
 
 namespace ShopManage.Users
 {
+    /// <summary>
+    /// 用户服务层
+    /// </summary>
     [AbpAuthorize(PermissionNames.Pages_Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
+        #region 依赖注入
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
 
+        /// <summary>
+        /// 依赖注入
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="userManager"></param>
+        /// <param name="roleManager"></param>
+        /// <param name="roleRepository"></param>
+        /// <param name="passwordHasher"></param>
         public UserAppService(
             IRepository<User, long> repository,
             UserManager userManager,
@@ -39,7 +51,46 @@ namespace ShopManage.Users
             _roleRepository = roleRepository;
             _passwordHasher = passwordHasher;
         }
+        #endregion
 
+        #region 查询
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ListResultDto<RoleDto>> GetRoles()
+        {
+            var roles = await _roleRepository.GetAllListAsync();
+            return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
+        }
+
+        /// <summary>
+        /// 根据ID获取数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected override async Task<User> GetEntityByIdAsync(long id)
+        {
+            return await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// 根据ID获取数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<User> GetByIdAsync(long id)
+        {
+            return await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+        }
+        #endregion
+
+        #region 新增
+        /// <summary>
+        /// 新增用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<UserDto> Create(CreateUserDto input)
         {
             CheckCreatePermission();
@@ -61,7 +112,14 @@ namespace ShopManage.Users
 
             return MapToEntityDto(user);
         }
+        #endregion
 
+        #region 修改
+        /// <summary>
+        /// 修改用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<UserDto> Update(UserDto input)
         {
             CheckUpdatePermission();
@@ -79,19 +137,63 @@ namespace ShopManage.Users
 
             return await Get(input);
         }
+        #endregion
 
+        #region 删除
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task Delete(EntityDto<long> input)
         {
             var user = await _userManager.GetUserByIdAsync(input.Id);
             await _userManager.DeleteAsync(user);
         }
+        #endregion
 
-        public async Task<ListResultDto<RoleDto>> GetRoles()
+        #region 写入实体
+        /// <summary>
+        /// 写入实体
+        /// </summary>
+        /// <param name="createInput"></param>
+        /// <returns></returns>
+        protected override User MapToEntity(CreateUserDto createInput)
         {
-            var roles = await _roleRepository.GetAllListAsync();
-            return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
+            var user = ObjectMapper.Map<User>(createInput);
+            user.SetNormalizedNames();
+            return user;
+        }
+        /// <summary>
+        /// 写入实体
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="user"></param>
+        protected override void MapToEntity(UserDto input, User user)
+        {
+            ObjectMapper.Map(input, user);
+            user.SetNormalizedNames();
         }
 
+        /// <summary>
+        /// 写入实体
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        protected override UserDto MapToEntityDto(User user)
+        {
+            var roles = _roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
+            var userDto = base.MapToEntityDto(user);
+            userDto.RoleNames = roles.ToArray();
+            return userDto;
+        }
+        #endregion
+
+        /// <summary>
+        /// 更换语言
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task ChangeLanguage(ChangeUserLanguageDto input)
         {
             await SettingManager.ChangeSettingForUserAsync(
@@ -101,42 +203,31 @@ namespace ShopManage.Users
             );
         }
 
-        protected override User MapToEntity(CreateUserDto createInput)
-        {
-            var user = ObjectMapper.Map<User>(createInput);
-            user.SetNormalizedNames();
-            return user;
-        }
-
-        protected override void MapToEntity(UserDto input, User user)
-        {
-            ObjectMapper.Map(input, user);
-            user.SetNormalizedNames();
-        }
-
-        protected override UserDto MapToEntityDto(User user)
-        {
-            var roles = _roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
-            var userDto = base.MapToEntityDto(user);
-            userDto.RoleNames = roles.ToArray();
-            return userDto;
-        }
-
+        /// <summary>
+        /// 创建过滤查询
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         protected override IQueryable<User> CreateFilteredQuery(PagedResultRequestDto input)
         {
             return Repository.GetAllIncluding(x => x.Roles);
         }
 
-        protected override async Task<User> GetEntityByIdAsync(long id)
-        {
-            return await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
-        }
-
+        /// <summary>
+        /// 应用排序
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         protected override IQueryable<User> ApplySorting(IQueryable<User> query, PagedResultRequestDto input)
         {
             return query.OrderBy(r => r.UserName);
         }
 
+        /// <summary>
+        /// 检查错误
+        /// </summary>
+        /// <param name="identityResult"></param>
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);

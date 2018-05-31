@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Abp.Authorization.Users;
 using Abp.Extensions;
 
@@ -28,5 +29,9 @@ namespace ShopManage.Authorization.Users
 
             return user;
         }
+
+
+        [MaxLength(512)]
+        public string Portrait { get; set; }
     }
 }
