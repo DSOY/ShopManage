@@ -30,8 +30,15 @@ namespace ShopManage.Authorization.Users
             return user;
         }
 
-
+        /// <summary>
+        /// 头像
+        /// </summary>
         [MaxLength(512)]
         public string Portrait { get; set; }
+        
+        /// <summary>
+        /// 生日
+        /// </summary>
+        public DateTime BirtherDay { get; set; }
     }
 }

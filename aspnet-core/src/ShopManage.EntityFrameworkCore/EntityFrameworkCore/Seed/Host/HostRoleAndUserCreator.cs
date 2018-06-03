@@ -9,6 +9,7 @@ using ShopManage.Authorization.Roles;
 using ShopManage.Authorization.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace ShopManage.EntityFrameworkCore.Seed.Host
 {
@@ -78,7 +79,8 @@ namespace ShopManage.EntityFrameworkCore.Seed.Host
                     Surname = "admin",
                     EmailAddress = "admin@aspnetboilerplate.com",
                     IsEmailConfirmed = true,
-                    IsActive = true
+                    IsActive = true,
+                    BirtherDay=Convert.ToDateTime("1995-01-01")
                 };
 
                 user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");

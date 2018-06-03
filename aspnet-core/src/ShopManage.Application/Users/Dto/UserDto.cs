@@ -7,41 +7,60 @@ using ShopManage.Authorization.Users;
 
 namespace ShopManage.Users.Dto
 {
+    /// <summary>
+    /// 用户
+    /// </summary>
     [AutoMapFrom(typeof(User))]
     public class UserDto : EntityDto<long>
     {
+        /// <summary>
+        /// 用户名
+        /// </summary>
         [Required]
         [StringLength(AbpUserBase.MaxUserNameLength)]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// 名称
+        /// </summary>
         [Required]
         [StringLength(AbpUserBase.MaxNameLength)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxSurnameLength)]
-        public string Surname { get; set; }
-
+        /// <summary>
+        /// 邮箱
+        /// </summary>
         [Required]
         [EmailAddress]
         [StringLength(AbpUserBase.MaxEmailAddressLength)]
         public string EmailAddress { get; set; }
-
+        
+        /// <summary>
+        /// 是否使用
+        /// </summary>
         public bool IsActive { get; set; }
 
+        /// <summary>
+        /// 全称
+        /// </summary>
         public string FullName { get; set; }
+        
 
-        public DateTime? LastLoginTime { get; set; }
-
-        public DateTime CreationTime { get; set; }
+        /// <summary>
+        /// 角色名称
+        /// </summary>
 
         public string[] RoleNames { get; set; }
-
-
+        
         /// <summary>
         /// 头像
         /// </summary>
         [MaxLength(512)]
         public string Portrait { get; set; }
+        
+        /// <summary>
+        /// 生日
+        /// </summary>
+        public DateTime BirtherDay { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace ShopManage.Users
 
         #region 查询
         /// <summary>
-        /// 获取用户
+        /// 获取用户角色
         /// </summary>
         /// <returns></returns>
         public async Task<ListResultDto<RoleDto>> GetRoles()
@@ -81,7 +81,7 @@ namespace ShopManage.Users
         /// <returns></returns>
         public async Task<User> GetByIdAsync(long id)
         {
-            return await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            return await Repository.GetAsync(id);
         }
         #endregion
 
