@@ -80,7 +80,7 @@ namespace ShopManage.EntityFrameworkCore.Seed.Host
                     EmailAddress = "admin@aspnetboilerplate.com",
                     IsEmailConfirmed = true,
                     IsActive = true,
-                    BirtherDay=Convert.ToDateTime("1995-01-01")
+                    BirthDay = Convert.ToDateTime("1995-01-01")
                 };
 
                 user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");

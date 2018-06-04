@@ -39,6 +39,6 @@ namespace ShopManage.Authorization.Users
         /// <summary>
         /// 生日
         /// </summary>
-        public DateTime BirtherDay { get; set; }
+        public DateTime BirthDay { get; set; }
     }
 }

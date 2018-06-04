@@ -63,7 +63,7 @@ namespace ShopManage.Users.Dto
         /// <summary>
         /// ÉúÈÕ
         /// </summary>
-        public DateTime BirtherDay { get; set; }
+        public DateTime BirthDay { get; set; }
 
         public void Normalize()
         {
