@@ -125,7 +125,7 @@ namespace ShopManage.Users
             CheckUpdatePermission();
 
             var user = await _userManager.GetUserByIdAsync(input.Id);
-
+            
             MapToEntity(input, user);
 
             CheckErrors(await _userManager.UpdateAsync(user));
@@ -136,6 +136,32 @@ namespace ShopManage.Users
             }
 
             return await Get(input);
+        }
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        public async Task UpdateInformationAsync(UserEditDto input)
+        {
+            CheckUpdatePermission();
+
+            var user = await _userManager.GetUserByIdAsync(input.Id);
+            user.BirthDay = input.BirthDay;
+            user.Name = input.Name;
+            user.EmailAddress = input.EmailAddress;
+            if (!string.IsNullOrEmpty(input.Portrait))
+            {
+                if (input.Portrait.Contains(".jpg"))
+                {
+                    user.Portrait = input.Portrait;
+                }
+                else
+                {
+                    var base64 = input.Portrait.Replace("data:image/jpeg;base64,", "");
+                    var savename = @"Portrait/" + 10000 + user.Id + ".jpg";
+                    user.Portrait = FileHelper.Base64StringToImage(base64, savename);
+                }
+            }
+            CheckErrors(await _userManager.UpdateAsync(user));
         }
         #endregion
 

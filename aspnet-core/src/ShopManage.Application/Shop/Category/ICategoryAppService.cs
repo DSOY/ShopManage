@@ -37,5 +37,11 @@ namespace ShopManage.Shop.Product
         /// <param name="input"></param>
         /// <returns></returns>
         Task DeteleCategoryAsync(EntityDto input);
+
+        /// <summary>
+        /// 获取一级品类
+        /// </summary>
+        /// <returns></returns>
+        Task<ListResultDto<CategoryListDto>> GetFirstCategoryAsync();
     }
 }

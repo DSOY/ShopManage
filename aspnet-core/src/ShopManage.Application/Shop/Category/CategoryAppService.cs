@@ -62,6 +62,16 @@ namespace ShopManage.Shop.Product
         }
 
         /// <summary>
+        /// 获取一级品类
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ListResultDto<CategoryListDto>> GetFirstCategoryAsync()
+        {
+            var query = await _categoryRepository.GetAllListAsync(x=>x.ParentId==0);
+            return new ListResultDto<CategoryListDto>(ObjectMapper.Map<List<CategoryListDto>>(query));
+        }
+
+        /// <summary>
         /// 根据ID获取
         /// </summary>
         /// <param name="input"></param>

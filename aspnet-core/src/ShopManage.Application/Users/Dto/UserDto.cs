@@ -55,12 +55,16 @@ namespace ShopManage.Users.Dto
         /// <summary>
         /// Í·Ïñ
         /// </summary>
-        [MaxLength(512)]
         public string Portrait { get; set; }
-        
+
+        private DateTime birthDay;
         /// <summary>
         /// ÉúÈÕ
         /// </summary>
-        public DateTime BirthDay { get; set; }
+        public string BirthDay {
+            get { return birthDay.ToString("yyyy-MM-dd");}
+            set { birthDay = Convert.ToDateTime(value); }
+        }
+
     }
 }

@@ -17,6 +17,9 @@
     <DocumentationFile>bin\Debug\netcoreapp2.0\ShopManage.Application.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ShopManage.Core\ShopManage.Core.csproj" />
   </ItemGroup>
 </Project>

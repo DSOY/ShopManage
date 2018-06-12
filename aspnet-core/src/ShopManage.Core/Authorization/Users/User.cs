@@ -33,7 +33,6 @@ namespace ShopManage.Authorization.Users
         /// <summary>
         /// 头像
         /// </summary>
-        [MaxLength(512)]
         public string Portrait { get; set; }
         
         /// <summary>
