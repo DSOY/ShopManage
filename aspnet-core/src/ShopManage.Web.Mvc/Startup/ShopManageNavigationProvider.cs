@@ -30,7 +30,7 @@ namespace ShopManage.Web.Startup
                             new MenuItemDefinition(
                                 PageNames.Product,
                                 new FixedLocalizableString("商品管理"),
-                                url: "Product",
+                                url: "Product?SkipCount=0&MaxResultCount=10",
                                 icon: "info"
                             )
                         ).AddItem(

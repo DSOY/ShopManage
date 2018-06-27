@@ -49,6 +49,12 @@
             dto.Id = null;
             dto.Code = '';
             dto.Barcode = '';
+
+            //price= 12;
+            //oldPrice= 13;
+            //shortName= "百合花";
+            //name = "百合花（白百合）";
+
             dto.Picture = "http://p2.wmpic.me/article/2016/09/19/1474265209_uDMIqejD.jpg";
             dto.CommentTimes = 0;
             dto.SoldNum = 0;

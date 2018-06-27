@@ -138,5 +138,42 @@ namespace ShopManage.Shop.Product
             //return entity.MapTo<ProductListDto>();
         }
         #endregion
+
+        #region 精品推荐
+        /// <summary>
+        /// 精品推荐
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Product>> GetBestGoods()
+        {
+            var list = await _productRepository.GetAllListAsync(x => x.IsBest == (int)Whether.True);
+            return list;
+        }
+        #endregion
+
+        #region 抢先新品
+        /// <summary>
+        /// 抢先新品
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Product>> GetNewGoods()
+        {
+            var list = await _productRepository.GetAllListAsync(x => x.IsNew == (int)Whether.True);
+            return list;
+        }
+        #endregion
+
+        #region 热兑排行
+        /// <summary>
+        /// 抢先新品
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Product>> GetExchangeGoods()
+        {
+            var list = await _productRepository.GetAllListAsync(x => x.IsNew == (int)Whether.True);
+            var products = list.OrderByDescending(x => x.SoldNum).Take(5).ToList();
+            return products;
+        }
+        #endregion
     }
 }
