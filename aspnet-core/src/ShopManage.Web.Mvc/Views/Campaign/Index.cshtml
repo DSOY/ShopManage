@@ -1,0 +1,124 @@
+﻿@using ShopManage.Activity.CampaignService.Dtos
+@using ShopManage.Web.Startup
+@model Abp.Application.Services.Dto.PagedResultDto<CampaignListDto>
+@{
+    ViewBag.CurrentPageName = PageNames.Active; // The menu item will be active for this page.
+}
+@section scripts
+    {
+<environment names="Development">
+    <script src="~/view-resources/Views/Campaign/Index.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/Campaign/_EditCampaignModal.js"></script>
+</environment>
+}
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    @L("Campaign")
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a id="RefreshButton" href="javascript:void(0);" class="waves-effect waves-block"><i class="material-icons">refresh</i>Refresh</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="body table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>活动名称</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var campaign in Model.Items)
+                        {
+                            <tr>
+                                <td>@campaign.Name</td>
+                                <td>@campaign.BeginTime</td>
+                                <td>@campaign.EndTime</td>
+                                <td>@campaign.Status</td>
+                                <td class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">menu</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="#" class="waves-effect waves-block edit-campaign" data-campaign-id="@campaign.Id" data-toggle="modal" data-target="#CampaignEditModal"><i class="material-icons">edit</i>@L("Edit")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block delete-campaign" data-campaign-id="@campaign.Id" data-campaign-name="@campaign.Name"><i class="material-icons">delete_sweep</i>@L("Delete")</a></li>
+                                        <li><a href="#" class="waves-effect waves-block campaign-item" data-campaign-id="@campaign.Id" data-campaign-name="@campaign.Name" data-toggle="modal" data-target="#CampaignItemModal"><i class="material-icons">menu</i>@L("Item")</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" data-toggle="modal" data-target="#CampaignCreateModal">
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CampaignCreateModal" tabindex="-1" role="dialog" aria-labelledby="CampaignCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="campaignCreateForm" role="form" novalidate class="form-validation">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>创建新活动</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input class="form-control" type="text" name="Name" required maxlength="100">
+                            <label class="form-label">@L("Name")</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input class="form-control" type="datetime" name="BeginTime" required>
+                            <label class="form-label">@L("BeginTime")</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input class="form-control" type="datetime" name="EndTime" required>
+                            <label class="form-label">@L("EndTime")</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary waves-effect">@L("Save")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CampaignEditModal" tabindex="-1" role="dialog" aria-labelledby="CampaignEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="CampaignItemModal" tabindex="-1" role="dialog" aria-labelledby="CampaignItemModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

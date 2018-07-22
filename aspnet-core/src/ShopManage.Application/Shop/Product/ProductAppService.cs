@@ -175,5 +175,17 @@ namespace ShopManage.Shop.Product
             return products;
         }
         #endregion
+
+        #region 获取所有
+        /// <summary>
+        /// 获取所有
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Product>> GetAllAsnyc()
+        {
+            var list = await _productRepository.GetAllListAsync();
+            return list;
+        }
+        #endregion
     }
 }

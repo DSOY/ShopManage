@@ -43,15 +43,15 @@ namespace ShopManage.Web.Startup
                         )
                 ).AddItem(
                         new MenuItemDefinition(
-                            PageNames.About,
-                            L("销售管理"),
+                            PageNames.Sale,
+                            L("Sale"),
                             url: "#",
                             icon: "info",
                             requiredPermissionName: PermissionNames.Pages_Tenants
                         ).AddItem(
                             new MenuItemDefinition(
                                 PageNames.About,
-                                L("商品目录"),
+                                L("Order"),
                                 url: "#",
                                 icon: "info",
                                 requiredPermissionName: PermissionNames.Pages_Tenants
@@ -59,10 +59,24 @@ namespace ShopManage.Web.Startup
                         ).AddItem(
                             new MenuItemDefinition(
                                 PageNames.About,
-                                L("商品目录"),
+                                L("Logistics"),
                                 url: "#",
                                 icon: "info",
                                 requiredPermissionName: PermissionNames.Pages_Tenants
+                            )
+                        )
+                ).AddItem(
+                        new MenuItemDefinition(
+                            PageNames.Active,
+                            L("Active"),
+                            url: "#",
+                            icon: "info"
+                        ).AddItem(
+                            new MenuItemDefinition(
+                                PageNames.About,
+                                L("Campaign"),
+                                url: "Campaign?SkipCount=0&MaxResultCount=10",
+                                icon: "info"
                             )
                         )
                 ).AddItem(

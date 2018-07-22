@@ -9,6 +9,8 @@
         public const string Roles = "Roles";
         public const string Product = "Product";
         public const string Category = "Category";
+        public const string Active = "Active";
+        public const string Sale = "Sale";
 
     }
 }

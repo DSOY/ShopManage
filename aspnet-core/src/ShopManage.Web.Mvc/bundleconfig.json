@@ -54,6 +54,8 @@
       "wwwroot/css/materialize.css",
       "wwwroot/css/style.css",
       "wwwroot/css/themes/all-themes.css",
+      "~/lib/kendoui/styles/kendo.common.min.css",
+      "~/lib/kendoui/styles/kendo.metro.min.css",
       "wwwroot/view-resources/Views/Shared/_Layout.css"
     ]
   },
@@ -74,6 +76,7 @@
       "wwwroot/lib/jquery-slimscroll/jquery.slimscroll.js",
       "wwwroot/lib/Waves/dist/waves.js",
       "wwwroot/lib/push.js/push.js",
+      "~/lib/kendoui/js/kendo.all.min.js",
       "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/abp.js",
       "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js",
       "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.toastr.js",

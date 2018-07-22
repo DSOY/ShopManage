@@ -2,7 +2,11 @@
 <localizationDictionary culture="zh-CN">
   <texts>
     <text name="HomePage" value="主页" />
-    <text name="About" value="关于" />
+    <text name="Sale" value="销售管理" />
+    <text name="Order" value="订单管理" />
+    <text name="Logistics" value="物流管理" />
+    <text name="Active" value="活动管理" />
+    <text name="Campaign" value="活动中心" />
     <text name="WellcomeMessage" value="欢迎来到ShopManage!" />
     <text name="FormIsNotValidMessage" value="窗体无效。请检查并修复错误." />
     <text name="TenantNameCanNotBeEmpty" value="租户名不能为空" />
@@ -61,6 +65,7 @@
     <text name="DisplayName">显示名称</text>
     <text name="Edit">修改</text>
     <text name="Delete">删除</text>
+    <text name="Item">明细</text>
     <text name="CreateNewRole">创建新角色</text>
     <text name="RoleName">角色名称</text>
     <text name="Actions">操作</text>

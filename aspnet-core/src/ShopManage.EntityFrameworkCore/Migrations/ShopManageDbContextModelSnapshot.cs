@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using ShopManage;
 using ShopManage.EntityFrameworkCore;
 using ShopManage.Shop;
 using System;
@@ -835,6 +836,64 @@ namespace ShopManage.Migrations
                     b.ToTable("AbpOrganizationUnits");
                 });
 
+            modelBuilder.Entity("ShopManage.Activity.Campaign", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("BeginTime");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<long?>("DeleterUserId");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("Status");
+
+                    b.Property<int>("TenantID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AbpCampaign");
+                });
+
+            modelBuilder.Entity("ShopManage.Activity.CampaignItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CampaignId");
+
+                    b.Property<bool>("IsDetele");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("ProductName")
+                        .HasMaxLength(120);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignId");
+
+                    b.ToTable("AbpCampaignItem");
+                });
+
             modelBuilder.Entity("ShopManage.Authorization.Roles.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -902,6 +961,8 @@ namespace ShopManage.Migrations
                     b.Property<string>("AuthenticationSource")
                         .HasMaxLength(64);
 
+                    b.Property<DateTime>("BirthDay");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasMaxLength(128);
@@ -962,6 +1023,8 @@ namespace ShopManage.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(32);
+
+                    b.Property<string>("Portrait");
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(128);
@@ -1253,6 +1316,13 @@ namespace ShopManage.Migrations
                     b.HasOne("Abp.Organizations.OrganizationUnit", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("ShopManage.Activity.CampaignItem", b =>
+                {
+                    b.HasOne("ShopManage.Activity.Campaign")
+                        .WithMany("CampaignItem")
+                        .HasForeignKey("CampaignId");
                 });
 
             modelBuilder.Entity("ShopManage.Authorization.Roles.Role", b =>

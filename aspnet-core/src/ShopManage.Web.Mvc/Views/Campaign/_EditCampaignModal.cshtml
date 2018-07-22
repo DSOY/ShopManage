@@ -1,0 +1,34 @@
+﻿@using Abp.MultiTenancy
+@using ShopManage.Activity.CampaignService.Dtos
+@using ShopManage.Web.Models.Common.Modals
+@model CampaignListDto
+@{
+    Layout = null;
+}
+@Html.Partial("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditCampaign")))
+<div class="modal-body">
+    <form name="CampaignEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="number" name="Name" required maxlength="100" value="@Model.Name">
+                <label class="form-label">@L("Name")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="datetime" name="BeginTime" required maxlength="100" value="@Model.BeginTime">
+                <label class="form-label">@L("BeginTime")</label>
+            </div>
+        </div>
+        <div class="form-group form-float">
+            <div class="form-line">
+                <input class="form-control" type="datetime" name="EndTime" required maxlength="100" value="@Model.EndTime">
+                <label class="form-label">@L("EndTime")</label>
+            </div>
+        </div>
+    </form>
+</div>
+@Html.Partial("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+<script src="~/view-resources/Views/Campaign/_EditCampaignModal.js" asp-append-version="true"></script>

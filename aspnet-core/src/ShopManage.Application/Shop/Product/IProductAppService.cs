@@ -44,5 +44,11 @@ namespace ShopManage.Shop.Product
         /// <param name="input"></param>
         /// <returns></returns>
         Task DeteleProductAsync(EntityDto input);
+
+        /// <summary>
+        /// 获取所有
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Product>> GetAllAsnyc();
     }
 }

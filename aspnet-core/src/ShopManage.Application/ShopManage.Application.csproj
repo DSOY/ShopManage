@@ -22,7 +22,4 @@
   <ItemGroup>
     <ProjectReference Include="..\ShopManage.Core\ShopManage.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Activity\Dtos\" />
-  </ItemGroup>
 </Project>
