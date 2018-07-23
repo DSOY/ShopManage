@@ -36,6 +36,7 @@ namespace ShopManage.Activity
         [Required]
         public bool IsDetele { get; set; }
 
+        public int CampaignId { get; set; }
         //public Campaign Campaign { get; set; }
     }
 }

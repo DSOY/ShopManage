@@ -51,16 +51,16 @@
                                         },
                                         error: function (e) { options.error(e); }
                                     });
-                                    //abp.services.app.campaign.getCampaignById(JSON.stringify({}))
-                                    //    .done(function (result) {
-                                    //        options.success(result.campaignItem);
-                                    //    })
-                                    //    .fail(function (error) {
-                                    //        options.error(error);
-                                    //    });
                                 },
                                 update: function (options) {
-                                    abp.services.app.user.update(options.data)
+                                    var dto = {
+                                        Id: options.data.id,
+                                        productId: options.data.productId,
+                                        price: options.data.price,
+                                        productName: options.data.productName,
+                                        isDetele: false
+                                    }
+                                    abp.services.app.campaignItem.createOrUpdate(dto)
                                         .done(function (result) {
                                             options.success(null);
                                         })

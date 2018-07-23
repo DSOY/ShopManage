@@ -88,7 +88,9 @@ namespace ShopManage.Activity.CampaignItemService
         protected async Task UpdateItemAsync(CampaignItemEditDto input)
         {
             var model = await _campaignItemAppService.GetAsync(input.Id.Value);
-            await _campaignItemAppService.UpdateAsync(input.MapTo(model));
+            input.CampaignId = model.CampaignId;
+            var dto = input.MapTo(model);
+            await _campaignItemAppService.UpdateAsync(dto);
         }
         #endregion
     }

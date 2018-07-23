@@ -20,13 +20,12 @@ namespace ShopManage.Activity.CampaignItemService.Dtos
         /// <summary>
         /// 商品ID
         /// </summary>
-        [MaxLength(120)]
         public int ProductId { get; set; }
 
         /// <summary>
         /// 商品名称
         /// </summary>
-        [Required]
+        [MaxLength(120)]
         public string ProductName { get; set; }
 
         /// <summary>
@@ -40,5 +39,7 @@ namespace ShopManage.Activity.CampaignItemService.Dtos
         /// </summary>
         [Required]
         public bool IsDetele { get; set; }
+
+        public int CampaignId { get; set; }
     }
 }
