@@ -1,5 +1,6 @@
 ﻿using Abp.AutoMapper;
 using Abp.Domain.Entities.Auditing;
+using ShopManage.Shop.Product;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,7 @@ namespace ShopManage.Activity.CampaignItemService.Dtos
         /// <summary>
         /// 商品ID
         /// </summary>
-        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// 商品名称

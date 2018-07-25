@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using ShopManage.Shop.Product;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +17,7 @@ namespace ShopManage.Activity
         /// 商品ID
         /// </summary>
         [Required]
-        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// 商品名称

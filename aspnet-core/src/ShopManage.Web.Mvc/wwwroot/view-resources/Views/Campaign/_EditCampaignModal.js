@@ -5,7 +5,7 @@
     var _$form = $('form[name=CampaignEditForm]');
     var _$form2 = $('form[name=CampaignItemForm]');
 
-    $('.modal-footer').hide();
+    $('#saveItem').hide();
     //Handle save button click
     _$form.closest('div.modal-content').find(".save-button").click(function (e) {
         e.preventDefault();
@@ -29,7 +29,7 @@
     //添加明细
     $('#itemAdd').click(function () {
         $('#itemModel').show();
-        $('.modal-footer').show();
+        $('#saveItem').show();
     })
     $('#saveItem').click(function (e) {
         e.preventDefault();

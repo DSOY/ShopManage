@@ -1,12 +1,14 @@
 ﻿using Abp.Application.Services.Dto;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using Abp.UI;
-using ShopManage.Activity.CampaignItemService.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ShopManage.Activity.CampaignItemService.Dtos;
 
 namespace ShopManage.Activity.CampaignItemService
 {
@@ -29,7 +31,8 @@ namespace ShopManage.Activity.CampaignItemService
         /// </summary>
         public async Task<ListResultDto<CampaignItemListDto>> GetAllAsync()
         {
-            var query = await _campaignItemAppService.GetAllListAsync();
+            var query = await _campaignItemAppService.GetAllIncluding(x=>x.Product).ToDynamicListAsync();
+            //var query = await _campaignItemAppService.GetAllListAsync();
             return new ListResultDto<CampaignItemListDto>(ObjectMapper.Map<List<CampaignItemListDto>>(query));
         }
         #endregion
