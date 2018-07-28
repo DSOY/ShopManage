@@ -37,17 +37,17 @@ namespace ShopManage.Authorization.Users
             AbpSession = NullAbpSession.Instance;
         }
 
-        public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed)
+        public async Task<User> RegisterAsync(string name, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed)
         {
-            CheckForTenant();
-
-            var tenant = await GetActiveTenantAsync();
+            //CheckForTenant();
+            //默认租户
+            var tenant = 1;
 
             var user = new User
             {
-                TenantId = tenant.Id,
+                TenantId = tenant,
                 Name = name,
-                Surname = surname,
+                Surname = "",
                 EmailAddress = emailAddress,
                 IsActive = true,
                 UserName = userName,
@@ -61,7 +61,7 @@ namespace ShopManage.Authorization.Users
 
             foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
             {
-                user.Roles.Add(new UserRole(tenant.Id, user.Id, defaultRole.Id));
+                user.Roles.Add(new UserRole(tenant, user.Id, defaultRole.Id));
             }
 
             CheckErrors(await _userManager.CreateAsync(user));

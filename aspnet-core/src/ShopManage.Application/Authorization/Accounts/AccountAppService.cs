@@ -36,7 +36,6 @@ namespace ShopManage.Authorization.Accounts
         {
             var user = await _userRegistrationManager.RegisterAsync(
                 input.Name,
-                input.Surname,
                 input.EmailAddress,
                 input.UserName,
                 input.Password,

@@ -9,28 +9,39 @@ namespace ShopManage.Authorization.Accounts.Dto
 {
     public class RegisterInput : IValidatableObject
     {
+        /// <summary>
+        /// 姓名
+        /// </summary>
         [Required]
         [StringLength(AbpUserBase.MaxNameLength)]
         public string Name { get; set; }
-
-        [Required]
-        [StringLength(AbpUserBase.MaxSurnameLength)]
-        public string Surname { get; set; }
-
+        
+        /// <summary>
+        /// 用户名
+        /// </summary>
         [Required]
         [StringLength(AbpUserBase.MaxUserNameLength)]
         public string UserName { get; set; }
 
+        /// <summary>
+        /// 邮箱地址
+        /// </summary>
         [Required]
         [EmailAddress]
         [StringLength(AbpUserBase.MaxEmailAddressLength)]
         public string EmailAddress { get; set; }
 
+        /// <summary>
+        /// 密码
+        /// </summary>
         [Required]
         [StringLength(AbpUserBase.MaxPlainPasswordLength)]
         [DisableAuditing]
         public string Password { get; set; }
 
+        /// <summary>
+        /// 验证码
+        /// </summary>
         [DisableAuditing]
         public string CaptchaResponse { get; set; }
 

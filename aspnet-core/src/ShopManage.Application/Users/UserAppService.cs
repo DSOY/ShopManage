@@ -15,6 +15,7 @@ using ShopManage.Authorization.Roles;
 using ShopManage.Authorization.Users;
 using ShopManage.Roles.Dto;
 using ShopManage.Users.Dto;
+using System;
 
 namespace ShopManage.Users
 {
@@ -96,7 +97,8 @@ namespace ShopManage.Users
             CheckCreatePermission();
 
             var user = ObjectMapper.Map<User>(input);
-
+            user.BirthDay = Convert.ToDateTime("1995-01-01");
+            user.Surname = "";
             user.TenantId = AbpSession.TenantId;
             user.Password = _passwordHasher.HashPassword(user, input.Password);
             user.IsEmailConfirmed = true;
