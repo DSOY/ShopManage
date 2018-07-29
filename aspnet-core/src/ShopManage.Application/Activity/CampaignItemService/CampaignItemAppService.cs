@@ -80,7 +80,8 @@ namespace ShopManage.Activity.CampaignItemService
         /// <returns></returns>
         protected async Task CreateItemAsync(CampaignItemEditDto input)
         {
-            await _campaignItemAppService.InsertAsync(input.MapTo<CampaignItem>());
+            var model = input.MapTo<CampaignItem>();
+            await _campaignItemAppService.InsertAsync(model);
         }
 
         /// <summary>

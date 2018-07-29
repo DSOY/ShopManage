@@ -876,7 +876,7 @@ namespace ShopManage.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CampaignId");
+                    b.Property<int>("CampaignId");
 
                     b.Property<bool>("IsDetele");
 
@@ -890,6 +890,8 @@ namespace ShopManage.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CampaignId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("AbpCampaignItem");
                 });
@@ -1052,6 +1054,26 @@ namespace ShopManage.Migrations
                     b.HasIndex("TenantId", "NormalizedUserName");
 
                     b.ToTable("AbpUsers");
+                });
+
+            modelBuilder.Entity("ShopManage.Cart.CartModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Qty");
+
+                    b.Property<int>("TenantID");
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("AbpCart");
                 });
 
             modelBuilder.Entity("ShopManage.MultiTenancy.Tenant", b =>
@@ -1322,7 +1344,13 @@ namespace ShopManage.Migrations
                 {
                     b.HasOne("ShopManage.Activity.Campaign")
                         .WithMany("CampaignItem")
-                        .HasForeignKey("CampaignId");
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ShopManage.Shop.Product.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ShopManage.Authorization.Roles.Role", b =>
@@ -1353,6 +1381,14 @@ namespace ShopManage.Migrations
                     b.HasOne("ShopManage.Authorization.Users.User", "LastModifierUser")
                         .WithMany()
                         .HasForeignKey("LastModifierUserId");
+                });
+
+            modelBuilder.Entity("ShopManage.Cart.CartModel", b =>
+                {
+                    b.HasOne("ShopManage.Shop.Product.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ShopManage.MultiTenancy.Tenant", b =>

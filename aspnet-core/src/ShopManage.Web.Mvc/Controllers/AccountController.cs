@@ -181,7 +181,6 @@ namespace ShopManage.Web.Controllers
 
                 var user = await _userRegistrationManager.RegisterAsync(
                     model.Name,
-                    model.Surname,
                     model.EmailAddress,
                     model.UserName,
                     model.Password,

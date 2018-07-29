@@ -27,9 +27,9 @@ namespace ShopManage.Activity.CampaignService
         }
         #endregion
 
-        #region 创建或新增活动
+        #region 创建或修改活动
         /// <summary>
-        /// 创建或新增活动
+        /// 创建或修改活动
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
