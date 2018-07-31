@@ -1,10 +1,15 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.AutoMapper;
 using Abp.Domain.Repositories;
+using Abp.Runtime.Session;
 using Abp.UI;
+using ShopManage.Authorization;
 using ShopManage.Cart.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +18,12 @@ namespace ShopManage.Cart
     /// <summary>
     /// 
     /// </summary>
+    [AbpAuthorize]
     public class CartAppService : ShopManageAppServiceBase, ICartAppService
     {
         #region 注入
         private readonly IRepository<CartModel> _cartAppService;
+        public IAbpSession AbpSession { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -24,6 +31,7 @@ namespace ShopManage.Cart
         public CartAppService(IRepository<CartModel> cartAppService)
         {
             _cartAppService = cartAppService;
+            AbpSession = NullAbpSession.Instance;
         }
         #endregion
 
@@ -33,8 +41,8 @@ namespace ShopManage.Cart
         /// </summary>
         public async Task<ListResultDto<CartListDto>> GetByUserAsync(int id)
         {
-            var query = await _cartAppService.GetAllListAsync(x => x.UserID == id);
-            //var query = await _campaignItemAppService.GetAllListAsync();
+            var currentUserId = AbpSession.UserId;
+            var query = _cartAppService.GetAllIncluding(p => p.Product).Where(x=>x.UserID==currentUserId);
             return new ListResultDto<CartListDto>(ObjectMapper.Map<List<CartListDto>>(query));
         }
         #endregion
@@ -47,8 +55,8 @@ namespace ShopManage.Cart
         /// <returns></returns>
         public async Task CreateCartAsync(CartInput input)
         {
-            var productId = input.ProductId;
             var model = input.MapTo<CartModel>();
+            model.UserID = Convert.ToInt32(AbpSession.UserId);
             await _cartAppService.InsertAsync(model);
         }
         #endregion

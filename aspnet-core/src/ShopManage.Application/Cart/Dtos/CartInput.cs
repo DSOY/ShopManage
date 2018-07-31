@@ -17,12 +17,7 @@ namespace ShopManage.Cart.Dtos
         /// </summary>
         [Required]
         public int TenantID { set; get; }
-
-        /// <summary>
-        /// 用户ID
-        /// </summary>
-        public int UserID { get; set; }
-
+        
         /// <summary>
         /// 商品ID
         /// </summary>

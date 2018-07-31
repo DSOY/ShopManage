@@ -19,6 +19,8 @@ namespace ShopManage.Activity
         [Required]
         public Product Product { get; set; }
 
+        public int ProductId { get; set; }
+
         /// <summary>
         /// 商品名称
         /// </summary>

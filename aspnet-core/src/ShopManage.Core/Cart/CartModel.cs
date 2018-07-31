@@ -27,6 +27,7 @@ namespace ShopManage.Cart
         /// </summary>
         [Required]
         public Product Product { get; set; }
+        public int ProductId { get; set; }
 
         /// <summary>
         /// 数量
