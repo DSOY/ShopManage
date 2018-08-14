@@ -13,21 +13,9 @@ namespace ShopManage.Cart.Dtos
     public class CartInput
     {
         /// <summary>
-        /// 租户ID
-        /// </summary>
-        [Required]
-        public int TenantID { set; get; }
-        
-        /// <summary>
         /// 商品ID
         /// </summary>
         [Required]
         public int ProductId { get; set; }
-
-        /// <summary>
-        /// 数量
-        /// </summary>
-        [Required]
-        public int Qty { get; set; }
     }
 }

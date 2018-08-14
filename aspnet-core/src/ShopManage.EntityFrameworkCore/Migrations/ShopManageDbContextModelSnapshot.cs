@@ -896,6 +896,35 @@ namespace ShopManage.Migrations
                     b.ToTable("AbpCampaignItem");
                 });
 
+            modelBuilder.Entity("ShopManage.Address.AddressModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Area");
+
+                    b.Property<int>("IsDefault");
+
+                    b.Property<bool>("IsDetele");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Phone")
+                        .IsRequired();
+
+                    b.Property<string>("StreetHouse")
+                        .IsRequired()
+                        .HasMaxLength(250);
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AbpAddress");
+                });
+
             modelBuilder.Entity("ShopManage.Authorization.Roles.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -1123,6 +1152,81 @@ namespace ShopManage.Migrations
                     b.HasIndex("TenancyName");
 
                     b.ToTable("AbpTenants");
+                });
+
+            modelBuilder.Entity("ShopManage.Order.OrderItemModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Qty");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("AbpOrderItem");
+                });
+
+            modelBuilder.Entity("ShopManage.Order.OrderModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ActivityID");
+
+                    b.Property<int?>("AddressModelId");
+
+                    b.Property<string>("BuyerRemark")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Carrier")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<long?>("DeleterUserId");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<string>("ExpressID");
+
+                    b.Property<string>("ExpressNO");
+
+                    b.Property<int>("FreightPoint");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<string>("OrderNo")
+                        .IsRequired();
+
+                    b.Property<int>("PayPoint");
+
+                    b.Property<int>("ProductPrice");
+
+                    b.Property<int>("Qty");
+
+                    b.Property<int>("Status");
+
+                    b.Property<int?>("TenantID");
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressModelId");
+
+                    b.ToTable("AbpOrder");
                 });
 
             modelBuilder.Entity("ShopManage.Shop.Product.Category", b =>
@@ -1408,6 +1512,21 @@ namespace ShopManage.Migrations
                     b.HasOne("ShopManage.Authorization.Users.User", "LastModifierUser")
                         .WithMany()
                         .HasForeignKey("LastModifierUserId");
+                });
+
+            modelBuilder.Entity("ShopManage.Order.OrderItemModel", b =>
+                {
+                    b.HasOne("ShopManage.Shop.Product.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ShopManage.Order.OrderModel", b =>
+                {
+                    b.HasOne("ShopManage.Address.AddressModel", "AddressModel")
+                        .WithMany()
+                        .HasForeignKey("AddressModelId");
                 });
 
             modelBuilder.Entity("ShopManage.Shop.Product.Product", b =>

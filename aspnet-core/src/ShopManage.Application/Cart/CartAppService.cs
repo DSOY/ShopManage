@@ -55,9 +55,21 @@ namespace ShopManage.Cart
         /// <returns></returns>
         public async Task CreateCartAsync(CartInput input)
         {
-            var model = input.MapTo<CartModel>();
-            model.UserID = Convert.ToInt32(AbpSession.UserId);
-            await _cartAppService.InsertAsync(model);
+            var cartdto = _cartAppService.GetAllList(x=>x.UserID== AbpSession.UserId && x.ProductId==input.ProductId).FirstOrDefault();
+            if (cartdto != null)
+            {
+                cartdto.Qty += 1;
+                await _cartAppService.UpdateAsync(cartdto);
+            }
+            else
+            {
+                var model = input.MapTo<CartModel>();
+                model.UserID = Convert.ToInt32(AbpSession.UserId);
+                model.TenantID = AbpSession.TenantId.HasValue ? AbpSession.TenantId.Value : 1;
+                model.Qty = 1;
+
+                await _cartAppService.InsertAsync(model);
+            }
         }
         #endregion
 
@@ -65,7 +77,7 @@ namespace ShopManage.Cart
         /// <summary>
         /// 修改购物车商品数量
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">购物车ID</param>
         /// <param name="isAdd">添加：1  减少：0</param>
         /// <returns></returns>
         public async Task UpdateQtyAsync(int id, IsAdd isAdd)

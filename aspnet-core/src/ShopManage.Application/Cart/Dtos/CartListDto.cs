@@ -10,6 +10,10 @@ namespace ShopManage.Cart.Dtos
     public class CartListDto
     {
         /// <summary>
+        /// ID
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 租户ID
         /// </summary>
         public int TenantID { set; get; }
