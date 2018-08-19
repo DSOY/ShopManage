@@ -87,5 +87,7 @@ namespace ShopManage.Order
         /// </summary>
         [MaxLength(50)]
         public string Carrier { set; get; }
+
+        public List<OrderItemModel> OrderItemModel { get; set; }
     }
 }

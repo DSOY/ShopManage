@@ -9,7 +9,7 @@ using System.Text;
 namespace ShopManage.Order
 {
     [Table("AbpOrderItem")]
-    public class OrderItemModel : Entity<Guid>
+    public class OrderItemModel : Entity<int>
     {
         /// <summary>
         /// 订单ID
